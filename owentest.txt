@@ -1,0 +1,20 @@
+chose a b
+PRIMES = all primes up to b
+EXPONENTS = initially empty hashmap of exponent vectors
+while(length of SMOOTHS < length of PRIMES + 1)
+    chose x's starting at x = sqrt(n) +1
+    check if x^2 (mod n) is B smooth
+
+    if B smooth
+        add to array SMOOTHS
+        calculate exponent vector and add to EXPONENTS
+    else
+        discard
+    
+gaussian elimination on EXPONENTS
+
+calculate exponent linear combination
+
+calculate the number from the exponent vector and square root it
+
+gcd()
