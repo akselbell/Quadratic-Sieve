@@ -1,8 +1,10 @@
 chose a b
 PRIMES = all primes up to b
 EXPONENTS = initially empty hashmap of exponent vectors
+SIEVING_INTERVAL = interval of all x's to test, should be root(n) - B to root(n) + B
+
 while(length of SMOOTHS < length of PRIMES + 1)
-    chose x's starting at x = sqrt(n) +1
+    chose x's from sieving interval
     check if x^2 (mod n) is B smooth
 
     if B smooth
