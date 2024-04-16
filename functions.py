@@ -45,3 +45,6 @@ def generatePrimes(B):
             ret.append(i)
 
     return ret
+
+def mod2(exponentVector):
+    return [i % 2 for i in exponentVector]
