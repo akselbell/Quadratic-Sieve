@@ -4,7 +4,7 @@ def checkSmooth(n, primes):
     exponents = [0] * len(primes)
     while n != 1:
         if i > len(primes)-1:
-            return "not B smooth"
+            return []
         while n % primes[i] == 0:
             exponents[i] += 1
             n = n / primes[i]
