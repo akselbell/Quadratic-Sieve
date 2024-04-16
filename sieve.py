@@ -4,7 +4,9 @@ def checkSmooth(n, primes):
     # trial division pretty much, might be useful to add check at top if the number is B smooth using the stack forum
     i = 0
     exponents = [0] * len(primes)
-    while n != 0 and i < len(primes):
+    while n != 1:
+        if i > len(primes)-1:
+            return "not B smooth"
         while n % primes[i] == 0:
             exponents[i] += 1
             n = n / primes[i]
