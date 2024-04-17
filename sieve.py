@@ -1,5 +1,6 @@
 from functions import checkSmooth, gcd, generatePrimes, mod2
 from matrix_functions import null_space_mod2, transpose
+from datetime import datetime
 import math
 #import sympy
 
@@ -7,8 +8,14 @@ import math
 print("Enter a number to factor:")
 n = int(input())
 
-B = 10000
+timeLastChecked = datetime.now()
+
+B = 1000000
 primes = generatePrimes(B)
+
+print(datetime.now() - timeLastChecked)
+timeLastChecked = datetime.now()
+
 factorizations = dict() # map of each x^2 term that is B smooth
 sievingInterval = [math.ceil(math.sqrt(n)), math.floor(math.sqrt(n)) + B]
 keys = []
@@ -27,11 +34,16 @@ for i in range(sievingInterval[0], sievingInterval[1]):
         matrix.append(mod2(exponentsVector))
         #they are currently added row vectors i think?
 
+print(datetime.now() - timeLastChecked)
+timeLastChecked = datetime.now()
+
 transposedMatrix = transpose(matrix)
 nullSpace = null_space_mod2(transposedMatrix)
 
-linearCombination = nullSpace[0]
+print(datetime.now() - timeLastChecked)
+timeLastChecked = datetime.now()
 
+linearCombination = nullSpace[0]
 squares = []
 
 for i in range(len(linearCombination)):
