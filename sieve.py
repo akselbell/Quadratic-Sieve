@@ -1,16 +1,17 @@
 from functions import checkSmooth, gcd, generatePrimes, mod2
-from null_space import null_space_mod2, transpose
+from matrix_functions import null_space_mod2, transpose
 import math
 #import sympy
 
-#use 3431 as an example input, it factors to 47 * 73
+#use 9142079 as an example input, it factors to 2663 * 3433
 print("Enter a number to factor:")
 n = int(input())
 
-B = 100
-primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+B = 1000000
+primes = generatePrimes(B)
 factorizations = dict() # map of each x^2 term that is B smooth
 sievingInterval = [math.ceil(math.sqrt(n)), math.floor(math.sqrt(n)) + B]
+keys = []
 matrix = []
 
 for i in range(sievingInterval[0], sievingInterval[1]):
@@ -21,9 +22,35 @@ for i in range(sievingInterval[0], sievingInterval[1]):
     exponentsVector = checkSmooth(x, primes)
 
     if(len(exponentsVector) != 0):
+        keys.append(i)
         factorizations[i] = exponentsVector
         matrix.append(mod2(exponentsVector))
         #they are currently added row vectors i think?
 
-matrix = transpose(matrix)
-print(null_space_mod2(matrix))
+transposedMatrix = transpose(matrix)
+nullSpace = null_space_mod2(transposedMatrix)
+
+linearCombination = nullSpace[0]
+
+squares = []
+
+for i in range(len(linearCombination)):
+    if linearCombination[i] == 1:
+        squares.append(keys[i])
+
+squaresProduct = 1
+primesProduct = 1
+
+for i in range(len(squares)):
+    squaresProduct = squaresProduct * squares[i]
+    
+    exponents = factorizations[squares[i]]
+    for j in range(len(exponents)):
+        if exponents[j] != 0:
+            primesProduct = primesProduct * (primes[j] ** (exponents[j]/2))    
+
+dif = abs(squaresProduct - primesProduct) % n
+factor1 = gcd(dif, n)
+print(factor1)
+factor2 = n / factor1
+print(factor2)
