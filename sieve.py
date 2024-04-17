@@ -7,7 +7,7 @@ import math
 print("Enter a number to factor:")
 n = int(input())
 
-B = 1000000
+B = 10000
 primes = generatePrimes(B)
 factorizations = dict() # map of each x^2 term that is B smooth
 sievingInterval = [math.ceil(math.sqrt(n)), math.floor(math.sqrt(n)) + B]

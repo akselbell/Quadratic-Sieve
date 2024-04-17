@@ -49,16 +49,6 @@ def null_space_mod2(matrix):
         
     return null_space_vectors
 
-# matrix = [
-#     [1, 1, 0, 1],
-#     [1, 0, 0, 0],
-#     [0, 1, 1, 0]
-# ]
-
-# null_space = null_space_mod2(matrix)
-# print("Null Space Vectors:")
-# for vec in null_space:
-#     print(vec)
 
 def transpose(matrix):
     # Calculate dimensions of the original matrix
