@@ -1,4 +1,5 @@
 from functions import checkSmooth, gcd, generatePrimes, mod2
+from null_space import null_space_mod2, transpose
 import math
 #import sympy
 
@@ -24,4 +25,5 @@ for i in range(sievingInterval[0], sievingInterval[1]):
         matrix.append(mod2(exponentsVector))
         #they are currently added row vectors i think?
 
-print(matrix)
+matrix = transpose(matrix)
+print(null_space_mod2(matrix))
