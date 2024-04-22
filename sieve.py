@@ -4,7 +4,7 @@ from datetime import datetime
 import math
 #import sympy
 
-#use 268905821 as an example input, it factors to 14347 * 18743. Doesn't work atm!
+#use 268905821 as an example input, it factors to 14347 * 18743
 #or 4994399 or 1491858941
 print("Enter a number to factor:")
 n = int(input())
@@ -70,13 +70,13 @@ for i in range(len(squares)):
 
 for i in range(len(totalExponents)):
     if totalExponents[i] != 0:
-        power = totalExponents[i] / 2  # Calculate the exponent
+        power = totalExponents[i] // 2  # Calculate the exponent
         result = primes[i] ** power % n  # Compute the result modulo n
         primesProduct = primesProduct * result
 
 print((squaresProduct*squaresProduct - primesProduct*primesProduct)%n) # should ALWAYS be equal to zero
 
-dif = abs(squaresProduct + primesProduct) % n
+dif = abs(squaresProduct - primesProduct) % n
 
 print(dif)
 
