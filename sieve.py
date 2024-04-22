@@ -2,10 +2,42 @@ from functions import checkSmooth, gcd, generatePrimes, mod2
 from matrix_functions import null_space_mod2, transpose
 from datetime import datetime
 import math
-#import sympy
+
+def calcXY():
+    squares = []
+    for i in range(len(linearCombination)):
+        if linearCombination[i] == 1:
+            squares.append(keys[i])
+
+    totalExponents = []
+    for i in range(len(primes)):
+        entry = 0
+        for j in squares:
+            entry = entry + factorizations[j][i]
+        totalExponents.append(entry)
+
+    print(totalExponents)
+        
+    squaresProduct = 1
+    primesProduct = 1
+
+    for i in range(len(squares)):
+        squaresProduct = squaresProduct * squares[i]
+        
+        exponents = factorizations[squares[i]]
+        print(str(squares[i]) + "    " + str(exponents))
+
+    for i in range(len(totalExponents)):
+        if totalExponents[i] != 0:
+            power = totalExponents[i] // 2  # Calculate the exponent
+            result = primes[i] ** power % n  # Compute the result modulo n
+            primesProduct = primesProduct * result
+    
+    return [squaresProduct, primesProduct]
+
 
 #use 268905821 as an example input, it factors to 14347 * 18743
-#or 4994399 or 1491858941
+#or 4994399 or 1491858941, or 315162571127
 print("Enter a number to factor:")
 n = int(input())
 
@@ -43,44 +75,28 @@ nullSpace = null_space_mod2(transposedMatrix)
 # print(datetime.now() - timeLastChecked)
 # timeLastChecked = datetime.now()
 
-linearCombination = nullSpace[0] # the linear combination of exponent vectors that sum to zero vector
-squares = []
+xySquaresDif = 0
+xyDif = 0
+xySum = 0
+i = 0
+while xySquaresDif == 0 and xyDif == 0 and xySum == 0:
+    linearCombination = nullSpace[i] # the linear combination of exponent vectors that sum to zero vector
 
-for i in range(len(linearCombination)):
-    if linearCombination[i] == 1:
-        squares.append(keys[i])
+    squaresProduct, primesProduct = calcXY()  # Call the function and unpack the return values
+    xySquaresDif = (squaresProduct * squaresProduct - primesProduct * primesProduct) % n
+    xyDif = abs(squaresProduct - primesProduct) % n
+    xySum = (squaresProduct + primesProduct) % n
+    print("xySquaresDif " + str(xySquaresDif)) # should ALWAYS be equal to zero
+    print("xyDif " + str(xyDif))
+    print("xySum " + str(xySum))
 
-totalExponents = []
-for i in range(len(primes)):
-    entry = 0
-    for j in squares:
-        entry = entry + factorizations[j][i]
-    totalExponents.append(entry)
+    i = i + 1
 
-print(totalExponents)
-    
-squaresProduct = 1
-primesProduct = 1
+if xyDif != 0:
+    factor1 = gcd(xyDif, n)
+else:
+    factor1 = gcd(xySum, n)
 
-for i in range(len(squares)):
-    squaresProduct = squaresProduct * squares[i]
-    
-    exponents = factorizations[squares[i]]
-    print(str(squares[i]) + "    " + str(exponents))
-
-for i in range(len(totalExponents)):
-    if totalExponents[i] != 0:
-        power = totalExponents[i] // 2  # Calculate the exponent
-        result = primes[i] ** power % n  # Compute the result modulo n
-        primesProduct = primesProduct * result
-
-print((squaresProduct*squaresProduct - primesProduct*primesProduct)%n) # should ALWAYS be equal to zero
-
-dif = abs(squaresProduct - primesProduct) % n
-
-print(dif)
-
-factor1 = gcd(dif, n)
 print(factor1)
 factor2 = n / factor1
 print(factor2)
