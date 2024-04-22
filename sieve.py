@@ -4,13 +4,13 @@ from datetime import datetime
 import math
 #import sympy
 
-#use 9142079 as an example input, it factors to 2663 * 3433
+#use 268905821 as an example input, it factors to 14347 * 18743
 print("Enter a number to factor:")
 n = int(input())
 
 timeLastChecked = datetime.now()
 
-B = 1000000
+B = int(math.sqrt(n))
 primes = generatePrimes(B)
 
 print(datetime.now() - timeLastChecked)

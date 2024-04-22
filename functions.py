@@ -1,16 +1,12 @@
-def checkSmooth(n, primes):
-    # trial division pretty much, might be useful to add check at top if the number is B smooth using the stack forum
-    i = 0
-    exponents = [0] * len(primes)
-    while n != 1:
-        if i > len(primes)-1:
-            return []
-        while n % primes[i] == 0:
+def checkSmooth(n, primes_set):
+    exponents = [0] * len(primes_set)
+    for i, prime in enumerate(primes_set):
+        while n % prime == 0:
             exponents[i] += 1
-            n = n / primes[i]
-        i += 1
-    return exponents
-
+            n //= prime
+            if n == 1:
+                return exponents
+    return []
 
 def gcd(x,y): # Euclid's algorithm
      if y == 0:
@@ -20,31 +16,30 @@ def gcd(x,y): # Euclid's algorithm
      else:
          return gcd(y,x) 
 
+
+def mod2(exponentVector):
+    return [i % 2 for i in exponentVector]
+
+
 def generatePrimes(B):
-    #sieve of Eratosthenes
-    if(B < 2):
+    if B < 2:
         return []
 
     primes = [True] * (B + 1)
     primes[0] = primes[1] = False
-    p = 2
     
-    while(p*p <= B):
-        i = p*p
-        while(i <= B):
-            primes[i] = False
-            i = i + p
-        
-        p = p + 1
-        while not primes[p]:
-            p = p + 1
+    # Start with 3 and iterate through odd numbers
+    p = 3
+    while p * p <= B:
+        if primes[p]:
+            # Mark multiples of p starting from p*p
+            for i in range(p * p, B + 1, 2 * p):
+                primes[i] = False
+        p += 2
     
-    ret = []
-    for i in range(len(primes)):
-        if(primes[i]):
+    ret = [2]  # 2 is prime, but not included in the sieve
+    for i in range(3, B + 1, 2):
+        if primes[i]:
             ret.append(i)
 
     return ret
-
-def mod2(exponentVector):
-    return [i % 2 for i in exponentVector]

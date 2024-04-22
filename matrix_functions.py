@@ -16,8 +16,8 @@ def rref_mod2(matrix):
         
         matrix[row], matrix[pivot] = matrix[pivot], matrix[row]
         
-        for r in range(rows):
-            if r != row and matrix[r][col] == 1:
+        for r in range(row + 1, rows):  # Only iterate over rows below the current row
+            if matrix[r][col] == 1:
                 matrix[r] = [(matrix[r][c] + matrix[row][c]) % 2 for c in range(cols)]
         
         row += 1
@@ -36,31 +36,28 @@ def null_space_mod2(matrix):
                 pivot_cols.append(c)
                 break
                 
-    free_vars = [c for c in range(cols) if c not in pivot_cols]
-    null_space_vectors = []
-    
-    for free_var in free_vars:
-        vector = [0] * cols
-        vector[free_var] = 1
-        for r in range(rows):
-            if rref_matrix[r][free_var] == 1:
-                vector[pivot_cols[r]] = (vector[pivot_cols[r]] + 1) % 2
-        null_space_vectors.append(vector)
+    for free_var in range(cols):
+        if free_var not in pivot_cols:
+            vector = [0] * cols
+            vector[free_var] = 1
+            for r in range(rows):
+                if rref_matrix[r][free_var] == 1:
+                    vector[pivot_cols[r]] = (vector[pivot_cols[r]] + 1) % 2
+            return [vector]  # Return as soon as a null space vector is found
         
-    return null_space_vectors
-
+    return []  # Return an empty list if no null space vector is found
 
 def transpose(matrix):
     # Calculate dimensions of the original matrix
     rows = len(matrix)
     cols = len(matrix[0])
 
-    # Create a new matrix to store the transposed result
-    transposed = [[0 for _ in range(rows)] for _ in range(cols)]
-
-    # Iterate over the original matrix and populate the transposed matrix
+    # Transpose the matrix in place
     for i in range(rows):
-        for j in range(cols):
-            transposed[j][i] = matrix[i][j]
+        for j in range(i + 1, cols):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
-    return transposed
+    # Resize the matrix to swap rows and columns
+    matrix[:] = [row[:rows] for row in matrix]
+
+    return matrix
