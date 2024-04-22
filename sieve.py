@@ -5,6 +5,7 @@ import math
 #import sympy
 
 #use 268905821 as an example input, it factors to 14347 * 18743
+#or 4994399
 print("Enter a number to factor:")
 n = int(input())
 
@@ -58,15 +59,17 @@ for i in range(len(squares)):
     squaresProduct = squaresProduct * squares[i]
     
     exponents = factorizations[squares[i]]
-    #print(str(squares[i]) + "    " + str(exponents))
+    print(str(squares[i]) + "    " + str(exponents))
     for j in range(len(exponents)):
         if exponents[j] != 0:
             primesProduct = primesProduct * (primes[j] ** exponents[j])    
 
-#print((primesProduct - squaresProduct*squaresProduct)%n) # should ALWAYS be equal to zero
+print((primesProduct - squaresProduct*squaresProduct)%n) # should ALWAYS be equal to zero
 
 primesProduct = math.sqrt(primesProduct)
 dif = abs(squaresProduct - primesProduct) % n
+
+print(dif)
 factor1 = gcd(dif, n)
 print(factor1)
 factor2 = n / factor1

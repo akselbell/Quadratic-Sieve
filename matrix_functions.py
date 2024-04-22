@@ -16,8 +16,8 @@ def rref_mod2(matrix):
         
         matrix[row], matrix[pivot] = matrix[pivot], matrix[row]
         
-        for r in range(row + 1, rows):  # Only iterate over rows below the current row
-            if matrix[r][col] == 1:
+        for r in range(rows):
+            if r != row and matrix[r][col] == 1:
                 matrix[r] = [(matrix[r][c] + matrix[row][c]) % 2 for c in range(cols)]
         
         row += 1
@@ -36,16 +36,18 @@ def null_space_mod2(matrix):
                 pivot_cols.append(c)
                 break
                 
-    for free_var in range(cols):
-        if free_var not in pivot_cols:
-            vector = [0] * cols
-            vector[free_var] = 1
-            for r in range(rows):
-                if rref_matrix[r][free_var] == 1:
-                    vector[pivot_cols[r]] = (vector[pivot_cols[r]] + 1) % 2
-            return [vector]  # Return as soon as a null space vector is found
+    free_vars = [c for c in range(cols) if c not in pivot_cols]
+    null_space_vectors = []
+    
+    for free_var in free_vars:
+        vector = [0] * cols
+        vector[free_var] = 1
+        for r in range(rows):
+            if rref_matrix[r][free_var] == 1:
+                vector[pivot_cols[r]] = (vector[pivot_cols[r]] + 1) % 2
+        null_space_vectors.append(vector)
         
-    return []  # Return an empty list if no null space vector is found
+    return null_space_vectors
 
 def transpose(matrix):
     # Calculate dimensions of the original matrix
