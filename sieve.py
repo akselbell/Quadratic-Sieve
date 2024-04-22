@@ -17,14 +17,11 @@ print(datetime.now() - timeLastChecked)
 timeLastChecked = datetime.now()
 
 factorizations = dict() # map of each x^2 term that is B smooth
-sievingInterval = [math.ceil(math.sqrt(n)), math.floor(math.sqrt(n)) + B]
+i = math.ceil(math.sqrt(n))
 keys = []
 matrix = []
 
-for i in range(sievingInterval[0], sievingInterval[1]):
-    if len(factorizations) > len(primes):
-        break
-    
+while len(factorizations) <= len(primes):
     x = (i * i) % n
     exponentsVector = checkSmooth(x, primes)
 
@@ -32,7 +29,8 @@ for i in range(sievingInterval[0], sievingInterval[1]):
         keys.append(i)
         factorizations[i] = exponentsVector
         matrix.append(mod2(exponentsVector))
-        #they are currently added row vectors i think?
+    
+    i = i + 1
 
 print(datetime.now() - timeLastChecked)
 timeLastChecked = datetime.now()
