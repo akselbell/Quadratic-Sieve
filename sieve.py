@@ -11,12 +11,13 @@ n = int(input())
 timeLastChecked = datetime.now()
 
 B = int(math.sqrt(n))
+#B = math.ceil(math.exp(0.5 * math.sqrt(math.log(n) * math.log(math.log(n)))))
 primes = generatePrimes(B)
 
 print(datetime.now() - timeLastChecked)
 timeLastChecked = datetime.now()
 
-factorizations = dict() # map of each x^2 term that is B smooth
+factorizations = dict() # map of each x term who's x^2 term is B smooth
 i = math.ceil(math.sqrt(n))
 keys = []
 matrix = []
@@ -41,12 +42,14 @@ nullSpace = null_space_mod2(transposedMatrix)
 print(datetime.now() - timeLastChecked)
 timeLastChecked = datetime.now()
 
-linearCombination = nullSpace[0]
+linearCombination = nullSpace[0] # the linear combination of exponent vectors that sum to zero vector
 squares = []
 
 for i in range(len(linearCombination)):
     if linearCombination[i] == 1:
         squares.append(keys[i])
+
+#print(squares)
 
 squaresProduct = 1
 primesProduct = 1
@@ -55,10 +58,14 @@ for i in range(len(squares)):
     squaresProduct = squaresProduct * squares[i]
     
     exponents = factorizations[squares[i]]
+    #print(str(squares[i]) + "    " + str(exponents))
     for j in range(len(exponents)):
         if exponents[j] != 0:
-            primesProduct = primesProduct * (primes[j] ** (exponents[j]/2))    
+            primesProduct = primesProduct * (primes[j] ** exponents[j])    
 
+#print((primesProduct - squaresProduct*squaresProduct)%n) # should ALWAYS be equal to zero
+
+primesProduct = math.sqrt(primesProduct)
 dif = abs(squaresProduct - primesProduct) % n
 factor1 = gcd(dif, n)
 print(factor1)
