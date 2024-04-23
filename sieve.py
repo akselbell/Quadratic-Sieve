@@ -93,8 +93,6 @@ while factor1 == 1:
 
     if xyDif != 0 and xySum != 0:
         factor1 = gcd(xyDif, n)
-    # if xyDif == 0 and xySum != 0:
-    #     factor1 = gcd(xySum, n)
 
     #print(str(xySquaresDif) + " " + str(xyDif) + " " + str(xySum) + " " + str(factor1))
     i += 1
