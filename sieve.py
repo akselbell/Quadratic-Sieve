@@ -79,7 +79,8 @@ xySquaresDif = 0
 xyDif = 0
 xySum = 0
 i = 0
-while xySquaresDif == 0 and xyDif == 0 and xySum == 0:
+factor1 = 1
+while factor1 == 1:
     linearCombination = nullSpace[i] # the linear combination of exponent vectors that sum to zero vector
 
     squaresProduct, primesProduct = calcXY()  # Call the function and unpack the return values
@@ -90,12 +91,13 @@ while xySquaresDif == 0 and xyDif == 0 and xySum == 0:
     print("xyDif " + str(xyDif))
     print("xySum " + str(xySum))
 
-    i = i + 1
+    if xyDif != 0:
+        factor1 = gcd(xyDif, n)
+    if xyDif == 0 and xySum != 0:
+        factor1 = gcd(xySum, n)
 
-if xyDif != 0:
-    factor1 = gcd(xyDif, n)
-else:
-    factor1 = gcd(xySum, n)
+    #print(str(xySquaresDif) + " " + str(xyDif) + " " + str(xySum) + " " + str(factor1))
+    i += 1
 
 print(factor1)
 factor2 = n / factor1
