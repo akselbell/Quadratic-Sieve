@@ -16,7 +16,7 @@ def calcXY():
             entry = entry + factorizations[j][i]
         totalExponents.append(entry)
 
-    print(totalExponents)
+    #print(totalExponents)
         
     squaresProduct = 1
     primesProduct = 1
@@ -25,7 +25,7 @@ def calcXY():
         squaresProduct = squaresProduct * squares[i]
         
         exponents = factorizations[squares[i]]
-        print(str(squares[i]) + "    " + str(exponents))
+        #print(str(squares[i]) + "    " + str(exponents))
 
     for i in range(len(totalExponents)):
         if totalExponents[i] != 0:
@@ -87,9 +87,9 @@ while factor1 == 1:
     xySquaresDif = (squaresProduct * squaresProduct - primesProduct * primesProduct) % n
     xyDif = abs(squaresProduct - primesProduct) % n
     xySum = (squaresProduct + primesProduct) % n
-    print("xySquaresDif " + str(xySquaresDif)) # should ALWAYS be equal to zero
-    print("xyDif " + str(xyDif))
-    print("xySum " + str(xySum))
+    #print("xySquaresDif " + str(xySquaresDif)) # should ALWAYS be equal to zero
+    #print("xyDif " + str(xyDif))
+    #print("xySum " + str(xySum))
 
     if xyDif != 0:
         factor1 = gcd(xyDif, n)
@@ -99,6 +99,7 @@ while factor1 == 1:
     #print(str(xySquaresDif) + " " + str(xyDif) + " " + str(xySum) + " " + str(factor1))
     i += 1
 
+print(datetime.now() - timeLastChecked)
 print(factor1)
 factor2 = n / factor1
 print(factor2)

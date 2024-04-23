@@ -43,3 +43,15 @@ def generatePrimes(B):
             ret.append(i)
 
     return ret
+
+# if primes[i] and legendre_symbol(n, i) == 1:
+#             ret.append(i)
+
+#     return ret
+
+# def legendre_symbol(n, p):
+
+#     ls = pow(n, (p - 1) // 2, p)
+#     if ls == p - 1:
+#         return -1
+#     return ls
