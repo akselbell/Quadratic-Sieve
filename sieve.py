@@ -45,7 +45,7 @@ timeLastChecked = datetime.now()
 
 #B = int(math.sqrt(n))
 B = math.ceil(math.exp(0.5 * math.sqrt(math.log(n) * math.log(math.log(n)))))
-primes = generatePrimes(B)
+primes = generatePrimes(B, n)
 
 # print(datetime.now() - timeLastChecked)
 # timeLastChecked = datetime.now()
@@ -88,18 +88,18 @@ while factor1 == 1:
     xyDif = abs(squaresProduct - primesProduct) % n
     xySum = (squaresProduct + primesProduct) % n
     #print("xySquaresDif " + str(xySquaresDif)) # should ALWAYS be equal to zero
-    #print("xyDif " + str(xyDif))
-    #print("xySum " + str(xySum))
+    print("xyDif " + str(xyDif))
+    print("xySum " + str(xySum))
 
-    if xyDif != 0:
+    if xyDif != 0 and xySum != 0:
         factor1 = gcd(xyDif, n)
-    if xyDif == 0 and xySum != 0:
-        factor1 = gcd(xySum, n)
+    # if xyDif == 0 and xySum != 0:
+    #     factor1 = gcd(xySum, n)
 
     #print(str(xySquaresDif) + " " + str(xyDif) + " " + str(xySum) + " " + str(factor1))
     i += 1
 
 print(datetime.now() - timeLastChecked)
-print(factor1)
-factor2 = n / factor1
-print(factor2)
+factor2 = n // factor1
+print("Factor 1: " + str(factor1))
+print("Factor 2: " + str(factor2))

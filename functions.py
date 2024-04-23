@@ -21,7 +21,7 @@ def mod2(exponentVector):
     return [i % 2 for i in exponentVector]
 
 
-def generatePrimes(B):
+def generatePrimes(B, n):
     if B < 2:
         return []
 
@@ -40,18 +40,11 @@ def generatePrimes(B):
     ret = [2]  # 2 is prime, but not included in the sieve
     for i in range(3, B + 1, 2):
         if primes[i]:
+            #if legendre_symbol(n, i) == 1:
             ret.append(i)
 
     return ret
 
-# if primes[i] and legendre_symbol(n, i) == 1:
-#             ret.append(i)
-
-#     return ret
-
-# def legendre_symbol(n, p):
-
-#     ls = pow(n, (p - 1) // 2, p)
-#     if ls == p - 1:
-#         return -1
-#     return ls
+def legendre_symbol(n, p):
+    ls = pow(n, (p - 1) // 2, p)
+    return ls
