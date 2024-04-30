@@ -63,6 +63,7 @@ while len(factorizations) <= len(primes):
         keys.append(i)
         factorizations[i] = exponentsVector
         matrix.append(mod2(exponentsVector))
+        print(len(keys))
     
     i = i + 1
 
