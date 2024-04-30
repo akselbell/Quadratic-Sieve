@@ -23,9 +23,6 @@ def calcXY():
 
     for i in range(len(squares)):
         squaresProduct = squaresProduct * squares[i]
-        
-        exponents = factorizations[squares[i]]
-        #print(str(squares[i]) + "    " + str(exponents))
 
     for i in range(len(totalExponents)):
         if totalExponents[i] != 0:
@@ -46,9 +43,6 @@ timeLastChecked = datetime.now()
 #B = int(math.sqrt(n))
 B = math.ceil(math.exp(0.5 * math.sqrt(math.log(n) * math.log(math.log(n)))))
 primes = generatePrimes(B, n)
-
-# print(datetime.now() - timeLastChecked)
-# timeLastChecked = datetime.now()
 
 factorizations = dict() # map of each x term who's x^2 term is B smooth
 i = math.ceil(math.sqrt(n))
@@ -84,7 +78,7 @@ factor1 = 1
 while factor1 == 1:
     linearCombination = nullSpace[i] # the linear combination of exponent vectors that sum to zero vector
 
-    squaresProduct, primesProduct = calcXY()  # Call the function and unpack the return values
+    squaresProduct, primesProduct = calcXY()  # call the function and unpack the return values
     xySquaresDif = (squaresProduct * squaresProduct - primesProduct * primesProduct) % n
     xyDif = abs(squaresProduct - primesProduct) % n
     xySum = (squaresProduct + primesProduct) % n

@@ -70,6 +70,6 @@ def generatePrimes(B, n):
 
     return ret
 
-def legendre_symbol(n, p):
+#def legendre_symbol(n, p):
     ls = pow(n, (p - 1) // 2, p)
     return ls
